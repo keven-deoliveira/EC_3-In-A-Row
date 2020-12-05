@@ -39,7 +39,7 @@ module TTT_Decoder(
     4'd6: P_EN = 9'b001000000;
     4'd7: P_EN = 9'b010000000;
     4'd8: P_EN = 9'b100000000;
-    
+        
     default: P_EN = 9'b000000000;    //ANYTHING ELSE WILL NOT BE ASSIGNED TO ANY CELL
     endcase 
     end
