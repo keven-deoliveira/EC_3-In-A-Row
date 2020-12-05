@@ -42,7 +42,7 @@ output [1:0] WINNER       //ADD ANOTHER OUTPUT FOR VGA DISPLAY (VGA CONTROLLER)
     P2_EN = P_EN; 
     P1_EN = 9;b0;
     end 
-    
+        
     else begin 
     P1_EN = 9'b0;          
     P2_EN = 9'b0;
