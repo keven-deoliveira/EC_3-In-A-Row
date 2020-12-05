@@ -89,7 +89,7 @@ module fsm_controller(
               else if (no_space == 1'b1 || win == 1'b1)
                 begin
                 ns <= game_over;
-                p2_play <=1'b1;
+                p2_play <=1'b1;           //why does p2_play = 1? 
                 end
             end
         game_over:
