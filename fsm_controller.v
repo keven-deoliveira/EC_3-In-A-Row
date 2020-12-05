@@ -61,24 +61,26 @@ module fsm_controller(
             end
         player1:
             begin
-              p1_play <= 1'b1; // sets turn to p1
+              p1_play <= 1'b1;
               p2_play <= 1'b0;
-              if(ill_move == 1'b0) // if turn made is not illegal, next is p2's turn
+              if(ill_move == 1'b0 && no_space == 1'b0 && win == 1'b0 && play2 == 1'b1) // if turn made is not illegal, next is p2's turn
                 ns <= player2;
-              else
-                ns <= idle;
+              else if(ill_move == 1'b1 || play1 == 1'b1)
+                ns <= player1;
+              else if (no_space == 1'b1 || win == 1'b1)
+                ns <= game_over; 
             end
         player2:
             begin
               p1_play <= 1'b0;
-              if(play2 == 1'b0)
+              if(play2 == 1'b1)
                 begin
                 ns <= player2;
                 p2_play <= 1'b0;
                 end 
-              else if (win == 1'b0 && no_space == 1'b0 && ill_move == 1'b0)
+              else if (win == 1'b0 && no_space == 1'b0 && ill_move == 1'b0 && play1 == 1'b1)
                 begin
-                ns <= idle;
+                ns <= player1;
                 p2_play <= 1'b1;
                 end
               else if (ill_move == 1'b1)
@@ -89,7 +91,6 @@ module fsm_controller(
               else if (no_space == 1'b1 || win == 1'b1)
                 begin
                 ns <= game_over;
-                p2_play <=1'b1;           //why does p2_play = 1? 
                 end
             end
         game_over:
