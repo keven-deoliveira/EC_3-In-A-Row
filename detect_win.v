@@ -36,7 +36,7 @@ module detect_win(
     detect_3inarow w5(pos2,pos5,pos8,win5,who5); //(2,5,8);           7 | 8 | 9 
     detect_3inarow w6(pos3,pos6,pos9,win6,who6); //(3,6,9);             |   |   
     detect_3inarow w7(pos1,pos5,pos9,win7,who7); //(1,5,9);
-    detect_3inarow w8(pos3,pos5,pos6,win8,who8); //(3,5,7); 
+    detect_3inarow w8(pos3,pos5,pos7,win8,who8); //(3,5,7); 
     
     assign winner = (((((((win1 | win2) | win3) | win4) | win5) | win6) | win7) | win8);
     assign who_win = (((((((who1 | who2) | who3) | who4) | who5) | who6) | who7) | who8);
