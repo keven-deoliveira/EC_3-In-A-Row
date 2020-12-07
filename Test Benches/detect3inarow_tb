@@ -1,0 +1,21 @@
+module detect3inarow_tb();
+
+
+reg [1:0] pos0, pos1, pos2;
+wire winner;
+wire [1:0] who_win;
+
+detect_3inarow x1(.pos0(pos0), .pos1(pos1), .pos2(pos2), .winner(winner), .who_win(who_win)); 
+
+initial begin
+pos0= 2'b01; pos1= 2'b01; pos2= 2'b01; #10;
+
+pos0= 2'b10; pos1= 2'b01; pos2= 2'b01; #10;
+
+pos0= 2'b10; pos1= 2'b10; pos2= 2'b10; #20;
+
+pos0= 2'b10; pos1= 2'b10; pos2= 2'b10; #20;
+
+
+end
+endmodule
