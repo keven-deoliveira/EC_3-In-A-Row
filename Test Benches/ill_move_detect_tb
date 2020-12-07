@@ -1,0 +1,22 @@
+module ill_move_detect_tb();
+
+reg [1:0] pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9;
+reg [8:0] P1_en;
+reg [8:0] P2_en;
+wire ill_move;
+
+ill_move_detect xx(.pos1(pos1), .pos2(pos2), .pos3(pos3), .pos4(pos4), .pos5(pos5), .pos6(pos6), .pos7(pos7), .pos8(pos8), .pos9(pos9), .P1_en(P1_en), .P2_en(P2_en), .ill_move(ill_move));
+
+initial begin
+pos1=2'b01; pos2=2'b01; pos3=2'b00; pos4=2'b10; pos5=2'b00; pos6=2'b00; pos7=2'b00; pos8=2'b00; pos9=2'b10;
+P1_en=9'b000100000;
+P2_en=9'b001000000;
+
+#10 pos1=2'b01; pos2=2'b01; pos3=2'b00; pos4=2'b10; pos5=2'b00; pos6=2'b00; pos7=2'b00; pos8=2'b00; pos9=2'b10;
+#10 P1_en=9'b000100000;
+#10 P2_en=9'b100000000;
+
+
+end
+
+endmodule
