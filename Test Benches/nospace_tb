@@ -1,0 +1,26 @@
+module nospace_tb();
+
+reg [1:0] pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9;
+wire no_space;
+
+nospace UUT( pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, no_space);
+
+initial begin
+pos1 = 0; pos2 = 0; pos3 = 0; pos4 = 0; pos5 = 0; pos6 = 0; pos7 = 0; pos8 = 0; pos9 = 0;
+#10; pos1 = 1;
+#10; pos2 = 1;
+#10; pos3 = 1;
+
+#20; pos1 = 1;
+#20; pos2 = 1;
+#20; pos3 = 1;
+#20; pos4 = 1;
+#20; pos5 = 1;
+#20; pos6 = 1;
+#20; pos7 = 1;
+#20; pos8 = 1;
+#20; pos9 = 1;
+end
+endmodule
+
+
