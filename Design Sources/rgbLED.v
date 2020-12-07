@@ -22,15 +22,14 @@
 
 module rgbLED(
     input clk,
-    //input wire [1:0] detect_win,
-    input [1:0] switch,
+    input wire [1:0] detect_win,
     output reg [2:0] LED_out   
     );
     
     always@(posedge clk)
     begin
     
-    case(switch)
+    case(detect_win)
     2'b01:  LED_out=3'b100;
     2'b10 : LED_out=3'b010;
     2'b11 : LED_out=3'b001;
