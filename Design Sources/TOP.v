@@ -79,11 +79,15 @@ output  [3:0] VGA_B
     VGA_DISPLAY U6(clk, reset,pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, hsync, vsync, VGA_R, VGA_G, VGA_B);
     
     
-    rgbLED U7(clk, WINNER, RGB_out1);
-    rgbLED U8(clk, WINNER, RGB_out2);
+    rgbLED U7(clk, no_space, WINNER, RGB_out1);
+    rgbLED U8(clk, no_space, WINNER, RGB_out2);
     
     always @ (posedge clk)
     begin
     LED_out1 <= RGB_out1;
     LED_out2 <= RGB_out2;
     end
+    
+    
+    
+endmodule
