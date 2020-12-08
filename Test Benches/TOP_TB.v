@@ -21,41 +21,97 @@
 
 
 module TOP_TB;
-
 reg clk;
 reg reset;
-reg [5:0] SW;
-wire [2:0] LED_out1, LED_out2;
-wire [1:0] pos1,pos2,pos3,pos4,pos5,pos6,pos7,pos8,pos9;
+reg [6:0] SW;
+wire  [2:0] LED_out1;
+wire  [2:0] LED_out2;
+wire hsync;
+wire vsync;
+wire  [3:0] VGA_R;
+wire  [3:0] VGA_G;
+wire  [3:0] VGA_B;
 
-TOP UUT (clk, reset, SW, LED_out1, LED_out2, pos1,pos2,pos3,pos4,pos5,pos6,pos7,pos8,pos9);
+TOP U1(clk, reset, SW, LED_out1, LED_out2, hsync, vsync, VGA_R, VGA_G, VGA_B);
 
-initial begin
-clk = 0;
-forever #5 clk = ~clk;
-end
+initial begin 
+clk = 1'b0;
+SW = 7'b0;
+reset = 1'b1;
 
-initial begin
-#500 $finish;
-end
+#100;
 
-initial begin
-SW = 0;
-reset = 1;
-#5 reset = 0;
-#5
-#10 SW[0] = 1;
-#10 SW[5:2] = 4'd1;
-#10 SW[0] = 0; SW[1] = 1;
-#10 SW[5:2] = 4'd4;
-#10 SW[0] = 1; SW[1] = 0;
-#10 SW[5:2] = 4'd2;
-#10 SW[0] = 0; SW[1] = 1;
-#10 SW[5:2] = 4'd5;
-#10 SW[0] = 1; SW[1] = 0;
-#10 SW[5:2] = 4'd3;
-#10 SW[0] = 0; SW[1] = 1;
-#10 SW[5:2] = 4'd6;
-end
+reset = 1'b0;
+
+#10 
+//player1 1st move 
+SW[6] = 1'd1;
+SW[1:0] = 2'b01; 
+SW[5:2] = 4'd1;
+
+#10;
+
+//player2 1st move 
+SW[6] = 1'd1;
+SW[1:0] = 2'b10; 
+SW[5:2] = 4'd2;
+
+#10;
+
+//player1 2nd move 
+SW[6] = 1'd1;
+SW[1:0] = 2'b01; 
+SW[5:2] = 4'd4;
+
+#10;
+
+//player2 2nd move 
+SW[6] = 1'd1;
+SW[1:0] = 2'b10; 
+SW[5:2] = 4'd7;
+
+#10;
+
+//player1 3rd move (Illegal move)
+SW[6] = 1'd1;
+SW[1:0] = 2'b01; 
+SW[5:2] = 4'd4;
+
+#10;
+
+//player1 3rd move (repeated) 
+SW[6] = 1'd1;
+SW[1:0] = 2'b01; 
+SW[5:2] = 4'd5;
+
+#10;
+
+//player2 3rd move (Illegal move)
+SW[6] = 1'd1;
+SW[1:0] = 2'b10; 
+SW[5:2] = 4'd1;
+
+#10;
+
+//player2 3rd move (repeated) 
+SW[6] = 1'd1;
+SW[1:0] = 2'b10; 
+SW[5:2] = 4'd8;
+
+#10;
+
+//player1 4th move  (WIN) 
+SW[6] = 1'd1;
+SW[1:0] = 2'b01; 
+SW[5:2] = 4'd9;
+
+#100000; 
+$stop;
+
+end 
+
+always #1 clk = ~clk;
+
+
 
 endmodule
