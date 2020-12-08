@@ -23,42 +23,45 @@
 module TOP(
 input clk,
 input reset,
-input [6:0] SW,
+input [5:0] SW,
 //output [1:0] WINNER       //ADD ANOTHER OUTPUT FOR VGA DISPLAY (VGA CONTROLLER)
-output reg [2:0] LED_out 
+output reg [2:0] LED_out1,
+output reg [2:0] LED_out2
+//output wire [1:0] pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9
 );
     
-    wire [8:0] P_EN;
-    reg [8:0] P1_EN, P2_EN;
-    wire [1:0] WIN;
-    wire [2:0] RGB_out;
+   // wire [8:0] P_EN;
+    wire [8:0] P1_EN, P2_EN;
+    wire [1:0] WINNER;
+    wire [2:0] RGB_out1;
+    wire [2:0] RGB_out2;
+    wire P1_play;
+    wire P2_play;
     
     
-    TTT_Decoder U0 (SW[5:2], SW[6], P_EN);
-    always@(*) begin
-    if (SW[1:0] == 2'b01) begin      //IF PLAYER SWITCH[1:0] IS 01 (PLAYER 1) 
-    P1_EN = P_EN; 
-    P2_EN = 9'b0;
-    end 
+    TTT_Decoder U0 (SW[5:2], P1_play , P1_EN);
+    TTT_Decoder U6 (SW[5:2], P2_play, P2_EN);
+//    always@(*) begin
+//    if (SW[1:0] == 2'b01) begin      //IF PLAYER SWITCH[1:0] IS 01 (PLAYER 1) 
+//    P1_EN = P_EN; 
+//    P2_EN = 9'b0;
+//    end 
     
-    else if (SW[1:0] == 2'b10) begin  //IF PLAYER SWITCH[1:0] IS 10 (PLAYER 2)
-    P2_EN = P_EN; 
-    P1_EN = 9'b0;
-    end 
+//    else if (SW[1:0] == 2'b10) begin  //IF PLAYER SWITCH[1:0] IS 10 (PLAYER 2)
+//    P2_EN = P_EN; 
+//    P1_EN = 9'b0;
+//    end 
         
-    else begin 
-    P1_EN = 9'b0;          
-    P2_EN = 9'b0;
-    
-    end 
-    end 
+//    else begin 
+//    P1_EN = 9'b0;          
+//    P2_EN = 9'b0;
+//   end 
+//   end 
     
     wire  [1:0] pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9;
     wire ill_move;
     wire no_space;
     wire win;
-    wire P1_play;
-    wire P2_play;
     
     pos_registers U1(clk, reset, ill_move, P1_EN, P2_EN,  pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9); 
    
@@ -68,13 +71,15 @@ output reg [2:0] LED_out
     
     fsm_controller U4(clk, reset, SW[0], SW[1], ill_move, no_space, win, P1_play, P2_play);
     
-    detect_win U5(pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, win, WIN);
+    detect_win U5(pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, win, WINNER);
     
-    rgbLED(clk, WIN, RGB_out);
+    rgbLED U7(clk, WINNER, RGB_out1);
+    rgbLED U8(clk, WINNER, RGB_out2);
     
     always @ (posedge clk)
     begin
-    LED_out <= RGB_out;
+    LED_out1 <= RGB_out1;
+    LED_out2 <= RGB_out2;
     end
     
     
