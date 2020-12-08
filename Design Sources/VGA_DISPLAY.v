@@ -64,7 +64,7 @@ module VGA_DISPLAY(
     
     assign pixel_enable = h_count_value <= h_active && v_count_value <= v_active;
     
-    always@(posedge clk_25 , posedge reset) begin 
+    always@(posedge clk_25 or posedge reset) begin 
     if(reset) begin h_count_value <= 10'b0; v_count_value <= 10'b0; end
     else begin
         if(h_count_value < 799) h_count_value <= h_count_value + 1;
@@ -80,13 +80,13 @@ module VGA_DISPLAY(
     
     assign cdraw1 = h_count_value >= 55 && h_count_value <= 154 && v_count_value >= 28 && v_count_value <=127;
     assign cdraw2 = h_count_value >= 270 && h_count_value <= 369 && v_count_value >= 28 && v_count_value <=127;
-    assign cdraw3 = h_count_value >= 270 && h_count_value <= 369 && v_count_value >= 28 && v_count_value <=127;
+    assign cdraw3 = h_count_value >= 485 && h_count_value <= 584 && v_count_value >= 28 && v_count_value <=127;
     assign cdraw4 = h_count_value >= 55 && h_count_value <= 154 && v_count_value >= 190 && v_count_value <=289;
     assign cdraw5 = h_count_value >= 270 && h_count_value <= 369 && v_count_value >= 190 && v_count_value <=289;
-    assign cdraw6 = h_count_value >= 270 && h_count_value <= 369 && v_count_value >= 190 && v_count_value <=289;
+    assign cdraw6 = h_count_value >= 485 && h_count_value <= 584 && v_count_value >= 190 && v_count_value <=289;
     assign cdraw7 = h_count_value >= 55 && h_count_value <= 154 && v_count_value >= 352 && v_count_value <=451;
-    assign cdraw8 = h_count_value >= 55 && h_count_value <= 154 && v_count_value >= 352 && v_count_value <=451;
-    assign cdraw9 = h_count_value >= 55 && h_count_value <= 154 && v_count_value >= 352 && v_count_value <=451;
+    assign cdraw8 = h_count_value >= 270 && h_count_value <= 369 && v_count_value >= 352 && v_count_value <=451;
+    assign cdraw9 = h_count_value >= 485 && h_count_value <= 584 && v_count_value >= 352 && v_count_value <=451;
      
     assign gridv1 = h_count_value >= 210 && h_count_value <= 214 && v_count_value >= 0 && v_count_value <=479;
     assign gridv2 = h_count_value >= 425 && h_count_value <= 429 && v_count_value >= 0 && v_count_value <=479;
@@ -100,69 +100,69 @@ module VGA_DISPLAY(
    if(pixel_enable) begin 
    if(cdraw1) begin 
    VGA_R <= (pos1 == 2'b00)? 4'b0:((pos1 == 2'b01)? 4'hF:4'b0);
-   VGA_G <= (pos1 == 2'b00)? 4'b0:((pos1 == 2'b01)? 4'b0:4'hF);
-   VGA_B <= (pos1 == 2'b00)? 4'b0:((pos1 == 2'b01)? 4'h0:4'b0);
+   VGA_G <= (pos1 == 2'b00)? 4'b0:((pos1 == 2'b01)? 4'b0:4'h0);
+   VGA_B <= (pos1 == 2'b00)? 4'b0:((pos1 == 2'b01)? 4'b0:4'hF);
    
    end
     
    else if(cdraw2) begin 
-   VGA_R <= (pos2 == 2'b00) ? 4'b0 : ((pos2 == 2'b01) ? 4'hF : 4'b0);
-   VGA_G <= (pos2 == 2'b00) ? 4'b0 : ((pos2 == 2'b01) ? 4'b0 : 4'hF);
-   VGA_B <= (pos2 == 2'b00) ? 4'b0 : ((pos2 == 2'b01) ? 4'h0 : 4'b0);
+   VGA_R <= (pos2 == 2'b00) ? 4'b0 : ((pos2 == 2'b01) ? 4'hF:4'b0);
+   VGA_G <= (pos2 == 2'b00) ? 4'b0 : ((pos2 == 2'b01) ? 4'b0:4'h0);
+   VGA_B <= (pos2 == 2'b00) ? 4'b0 : ((pos2 == 2'b01) ? 4'b0:4'hF);
    
    
    
    end
    
    else if(cdraw3) begin 
-   VGA_R <= (pos3 == 2'b00) ? 4'b0 : ((pos3 == 2'b01) ? 4'hF : 4'b0);
-   VGA_G <= (pos3 == 2'b00) ? 4'b0 : ((pos3 == 2'b01) ? 4'b0 : 4'hF);
-   VGA_B <= (pos3 == 2'b00) ? 4'b0 : ((pos3 == 2'b01) ? 4'h0 : 4'b0);
+   VGA_R <= (pos3 == 2'b00) ? 4'b0 : ((pos3 == 2'b01) ? 4'hF:4'b0);
+   VGA_G <= (pos3 == 2'b00) ? 4'b0 : ((pos3 == 2'b01) ? 4'b0:4'h0);
+   VGA_B <= (pos3 == 2'b00) ? 4'b0 : ((pos3 == 2'b01) ? 4'b0:4'hF);
    
    
    
    end
                
    else if(cdraw4) begin 
-   VGA_R <= (pos4 == 2'b00) ? 4'b0 : ((pos4 == 2'b01) ? 4'hF : 4'b0);
-   VGA_G <= (pos4 == 2'b00) ? 4'b0 : ((pos4 == 2'b01) ? 4'b0 : 4'hF);
-   VGA_B <= (pos4 == 2'b00) ? 4'b0 : ((pos4 == 2'b01) ? 4'h0 : 4'b0);
+   VGA_R <= (pos4 == 2'b00) ? 4'b0 : ((pos4 == 2'b01) ? 4'hF:4'b0);
+   VGA_G <= (pos4 == 2'b00) ? 4'b0 : ((pos4 == 2'b01) ? 4'b0:4'h0);
+   VGA_B <= (pos4 == 2'b00) ? 4'b0 : ((pos4 == 2'b01) ? 4'b0:4'hF);
     
    end 
    
    else if(cdraw5) begin 
-   VGA_R <= (pos5 == 2'b00) ? 4'b0 : ((pos5 == 2'b01) ? 4'hF : 4'b0);
-   VGA_G <= (pos5 == 2'b00) ? 4'b0 : ((pos5 == 2'b01) ? 4'b0 : 4'hF);
-   VGA_B <= (pos5 == 2'b00) ? 4'b0 : ((pos5 == 2'b01) ? 4'h0 : 4'b0);
+   VGA_R <= (pos5 == 2'b00) ? 4'b0 : ((pos5 == 2'b01) ? 4'hF:4'b0);
+   VGA_G <= (pos5 == 2'b00) ? 4'b0 : ((pos5 == 2'b01) ? 4'b0:4'h0);
+   VGA_B <= (pos5 == 2'b00) ? 4'b0 : ((pos5 == 2'b01) ? 4'b0:4'hF);
     
    end 
    
    else if(cdraw6) begin 
-   VGA_R <= (pos6 == 2'b00) ? 4'b0 : ((pos6 == 2'b01) ? 4'hF : 4'b0);
-   VGA_G <= (pos6 == 2'b00) ? 4'b0 : ((pos6 == 2'b01) ? 4'b0 : 4'hF);
-   VGA_B <= (pos6 == 2'b00) ? 4'b0 : ((pos6 == 2'b01) ? 4'h0 : 4'b0);
+   VGA_R <= (pos6 == 2'b00) ? 4'b0 : ((pos6 == 2'b01) ? 4'hF:4'b0);
+   VGA_G <= (pos6 == 2'b00) ? 4'b0 : ((pos6 == 2'b01) ? 4'b0:4'h0);
+   VGA_B <= (pos6 == 2'b00) ? 4'b0 : ((pos6 == 2'b01) ? 4'b0:4'hF);
    
     
    end 
    
    else if(cdraw7) begin 
-   VGA_R <= (pos7 == 2'b00) ? 4'b0 : ((pos7 == 2'b01) ? 4'hF : 4'b0);
-   VGA_G <= (pos7 == 2'b00) ? 4'b0 : ((pos7 == 2'b01) ? 4'b0 : 4'hF);
-   VGA_B <= (pos7 == 2'b00) ? 4'b0 : ((pos7 == 2'b01) ? 4'h0 : 4'b0);
+   VGA_R <= (pos7 == 2'b00) ? 4'b0 : ((pos7 == 2'b01) ? 4'hF:4'b0);
+   VGA_G <= (pos7 == 2'b00) ? 4'b0 : ((pos7 == 2'b01) ? 4'b0:4'h0);
+   VGA_B <= (pos7 == 2'b00) ? 4'b0 : ((pos7 == 2'b01) ? 4'b0:4'hF);
     
    end 
    
    else if(cdraw8) begin 
-   VGA_R <= (pos8 == 2'b00) ? 4'b0 : ((pos8 == 2'b01) ? 4'hF : 4'b0);
-   VGA_G <= (pos8 == 2'b00) ? 4'b0 : ((pos8 == 2'b01) ? 4'b0 : 4'hF);
-   VGA_B <= (pos8 == 2'b00) ? 4'b0 : ((pos8 == 2'b01) ? 4'h0 : 4'b0);
+   VGA_R <= (pos8 == 2'b00) ? 4'b0 : ((pos8 == 2'b01) ? 4'hF:4'b0);
+   VGA_G <= (pos8 == 2'b00) ? 4'b0 : ((pos8 == 2'b01) ? 4'b0:4'h0);
+   VGA_B <= (pos8 == 2'b00) ? 4'b0 : ((pos8 == 2'b01) ? 4'b0:4'hF);
     
    end 
    
    else if(cdraw9) begin 
-   VGA_R <= (pos9 == 2'b00) ? 4'b0 : ((pos9 == 2'b01) ? 4'hF : 4'b0);
-   VGA_G <= (pos9 == 2'b00) ? 4'b0 : ((pos9 == 2'b01) ? 4'b0 : 4'hF);
-   VGA_B <= (pos9 == 2'b00) ? 4'b0 : ((pos9 == 2'b01) ? 4'h0 : 4'b0);
+   VGA_R <= (pos9 == 2'b00) ? 4'b0 : ((pos9 == 2'b01) ? 4'hF:4'b0);
+   VGA_G <= (pos9 == 2'b00) ? 4'b0 : ((pos9 == 2'b01) ? 4'b0:4'h0);
+   VGA_B <= (pos9 == 2'b00) ? 4'b0 : ((pos9 == 2'b01) ? 4'b0:4'hF);
     
    end 
    
