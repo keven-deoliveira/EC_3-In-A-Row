@@ -2,9 +2,12 @@
 
 ## Contributors:
 
-Keven DeOliveira,
-Eric Cho,
-Seifallah Ibrahim,
+Keven DeOliveira
+
+Eric Cho
+
+Seifallah Ibrahim
+
 Harry Katsaros
 
 ## Overview
