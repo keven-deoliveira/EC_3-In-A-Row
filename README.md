@@ -1,5 +1,6 @@
 # EC 3-1n-A-Row
-Contributors:
+
+## Contributors:
 
 Keven DeOliveira,
 Eric Cho,
