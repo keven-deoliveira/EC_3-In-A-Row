@@ -13,7 +13,7 @@ Harry Katsaros
 ## Overview
 For our EC311 final project, our group chose to recreate a two player version of the iconic game Tic Tac Toe. Our version of the game follows all of the conventional rules. Therefore, player one and two alternate taking turns choosing areas on the 3 by 3 grid. Red squares represent all of the locations chosen by player one and blue squares represent all spots chosen by player two. A player's move is only valid if the location they choose has not already been chosen earlier in the game. The two players are able to choose these locations with the switches on the FPGA board. If either player is able to connect three of their squares horizontally, vertically, or diagonally, they win. If player 1 wins, the RGB light on the FPGA lights red and blue if player 2 wins. However if all 9 spots are chosen, the game is a tie and the RGB light turns green. Once either player wins or there is a tie, the users can reset the board by using the reset switch. This reset switch can be activated at any time to restart the game. 
 
-## How to Run:
+## How to Run
 To run this design you will need:
 - An FPGA board with VGA compatability (we used a Nexys4-DDR)
 - A monitor with VGA compatability
@@ -25,7 +25,7 @@ To run this design you will need:
 - Optional: If you wish to see how each module works individually, you may import the files to test them from the Test Benches folder.
 - Generate the bitstream and program board.
 
-## How to Play:
+## How to Play
 - Set SW15 to low: this acts as the reset switch.
 - Use SW0 and SW1 to change current player (SW0 high = player 1, SW1 high = player2)
 - Use SW2-SW5 to choose designated play position.
